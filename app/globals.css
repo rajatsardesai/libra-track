@@ -50,7 +50,7 @@
   }
 
   .book-btn {
-    @apply bg-dark-600 mt-3 min-h-14 w-full font-bebas-neue text-base text-primary;
+    @apply bg-dark-600 mt-3 min-h-14 w-full font-bebas-neue text-base text-primary !important;
   }
 
   /* Borrowed Book */
@@ -123,7 +123,7 @@
 
   /* File Upload */
   .upload-btn {
-    @apply flex min-h-14 w-full items-center justify-center gap-1.5 rounded-md;
+    @apply flex min-h-14 w-full items-center justify-center gap-1.5 rounded-md bg-dark-300;
   }
 
   .upload-filename {
