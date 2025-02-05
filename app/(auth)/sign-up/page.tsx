@@ -2,6 +2,7 @@
 
 import AuthForm from "@/components/AuthForm";
 import { signUpSchema } from "@/lib/validations";
+import { signUp } from "@/lib/actions/auth";
 
 const Page = () => (
   <AuthForm
@@ -14,7 +15,7 @@ const Page = () => (
       universityId: 0,
       universityCard: "",
     }}
-    onSubmit={() => {}}
+    onSubmit={signUp}
   />
 );
 export default Page;
