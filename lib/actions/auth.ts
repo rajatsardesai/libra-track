@@ -83,6 +83,6 @@ export const signUp = async (params: AuthCredentials) => {
     return { success: true };
   } catch (error) {
     console.log("Signup error", error);
-    return { success: false, error: "Signup error" };
+    return { success: false, error: `Signup error ${error}` };
   }
 };

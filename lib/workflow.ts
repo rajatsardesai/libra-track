@@ -20,6 +20,11 @@ export const sendEmail = ({
 }) => {
   emailjs.init({
     publicKey: config.env.emailjs.publicId,
+    blockHeadless: true,
+    limitRate: {
+      id: "app",
+      throttle: 10000,
+    },
   });
 
   emailjs
