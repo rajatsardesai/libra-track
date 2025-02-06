@@ -8,6 +8,8 @@ import { signIn } from "@/auth";
 import { headers } from "next/headers";
 import ratelimit from "@/lib/ratelimit";
 import { redirect } from "next/navigation";
+import { workflowClient } from "@/lib/workflow";
+import config from "@/lib/config";
 
 const redisRateLimiter = async () => {
   const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1";
@@ -68,7 +70,15 @@ export const signUp = async (params: AuthCredentials) => {
       universityCard,
     });
 
-    // await signInWithCredentials({ email, password });
+    await workflowClient.trigger({
+      url: `${config.env.prodApiEndpoint}/api/workflows/onboarding`,
+      body: {
+        email,
+        fullName,
+      },
+    });
+
+    await signInWithCredentials({ email, password });
 
     return { success: true };
   } catch (error) {
