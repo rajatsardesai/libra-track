@@ -7,7 +7,7 @@ export const workflowClient = new WorkflowClient({
   token: config.env.upstash.qstashToken,
 });
 
-export const sendEmail = ({
+export const sendEmail = async ({
   email,
   name,
   subject,
@@ -27,19 +27,21 @@ export const sendEmail = ({
     },
   });
 
-  emailjs
-    .send(config.env.emailjs.serviceId, config.env.emailjs.templateId, {
-      email,
-      name,
-      subject,
-      message,
-    })
-    .then(
-      (response) => {
-        console.log("SUCCESS!", response.status, response.text);
-      },
-      (error) => {
-        console.log("FAILED...", error);
+  try {
+    const response = await emailjs.send(
+      config.env.emailjs.serviceId,
+      config.env.emailjs.templateId,
+      {
+        email,
+        name,
+        subject,
+        message,
       },
     );
+    console.log("Email sent successfully:", response.status, response.text);
+    return response;
+  } catch (error) {
+    console.error("Email sending failed:", error);
+    throw error;
+  }
 };
